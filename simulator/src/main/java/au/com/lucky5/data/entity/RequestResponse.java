@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 
 /**
@@ -38,6 +39,8 @@ public class RequestResponse {
 	public void setResponseXML(String responseXML) {
 		this.responseXML = responseXML;
 	}
+	
+	@ManyToOne
 	public Api getApi() {
 		return api;
 	}

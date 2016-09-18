@@ -1,8 +1,10 @@
 package au.com.lucky5.data.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class Api {
 	private long id;
 	private String name;

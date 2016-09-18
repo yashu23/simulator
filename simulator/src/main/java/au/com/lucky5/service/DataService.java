@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ public class DataService {
 	 * Method to locate response xml for the input xml
 	 */
 	public String getResponse(String requestXML){
+		if(cache.size() == 0) {
+			load();
+		}
 		return cache.get(requestXML);
 	}
 	
@@ -52,7 +57,7 @@ public class DataService {
 	}
 	
 	public List<String> getAVCList(){
-		return requestResponseRepository.findDistinctAvc();
+		return requestResponseRepository.findDistinctAVC();
 	}
 	
 	public Iterable<Api> getApiList(){
@@ -65,5 +70,17 @@ public class DataService {
 	
 	public void deleteApi(Api api){
 		apiRepository.delete(api);
+	}
+	
+	@PostConstruct
+	public void loadApiData(){
+		Api api1 = new Api();
+		api1.setName("testApi1");
+		
+		Api api2 = new Api();
+		api2.setName("testApi2");
+		
+		apiRepository.save(api1);
+		apiRepository.save(api2);
 	}
 }
